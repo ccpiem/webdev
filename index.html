@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Live Code Editor</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    #editor-container {
+      display: flex;
+      height: 100%;
+    }
+
+    #editor {
+      flex: 1;
+      height: 100%;
+    }
+
+    #output {
+      flex: 1;
+      height: 100%;
+      border: 1px solid #ccc;
+      overflow: auto;
+      padding: 10px;
+      box-sizing: border-box;
+    }
+  </style>
+</head>
+<body>
+  <div id="editor-container">
+    <div id="editor"></div>
+    <div id="output"></div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ace.js"></script>
+  <script>
+    // Initialize ACE editor
+    var editor = ace.edit("editor");
+    editor.setTheme("ace/theme/monokai");
+    editor.getSession().setMode("ace/mode/html");
+
+    // Update output on editor change
+    editor.getSession().on('change', function() {
+      updateOutput();
+    });
+
+    // Function to update the output
+    function updateOutput() {
+      var output = document.getElementById("output");
+      var code = editor.getValue();
+      output.innerHTML = code;
+    }
+
+    // Initial output update
+    updateOutput();
+  </script>
+</body>
+</html>
